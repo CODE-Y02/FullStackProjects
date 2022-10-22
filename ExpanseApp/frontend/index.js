@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => sendData(e));
 async function getAll(event) {
   event.preventDefault();
   try {
-    let res = await axios.get(`https://crudcrud.com/api/${API_KEY}/expenses`);
+    let res = await axios.get(`http://localhost:3000/expenses`);
 
     //disolay all exp
     res.data.map((expense) => {
@@ -35,12 +35,12 @@ async function sendData(e) {
     e.preventDefault();
     console.log("send data");
     let amount = document.getElementById("amount");
-    let desc = document.getElementById("desc");
+    let description = document.getElementById("description");
     let type = document.getElementById("ExpanaseType");
 
     let expenseObj = {
       amount: amount.value,
-      desc: desc.value,
+      description: description.value,
       type: type.value,
     };
 
@@ -48,27 +48,22 @@ async function sendData(e) {
       // console.log(editId);
       //edit // put request
 
-      await axios.put(
-        `https://crudcrud.com/api/${API_KEY}/expenses/${editId}`,
-        expenseObj
-      );
+      await axios.put(`http//localhost:3000/expenses/${editId}`, expenseObj);
       showOnscreen({ ...expenseObj, _id: editId });
       editId = undefined;
     } else {
       // try {
       //post
       let response = await axios.post(
-        `https://crudcrud.com/api/${API_KEY}/expenses`,
+        `http://localhost:3000/expenses`,
         expenseObj
       );
       showOnscreen(response.data);
     }
     amount.value = "";
-    desc.value = "";
+    description.value = "";
     type.value = "other";
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -77,7 +72,7 @@ async function sendData(e) {
 function showOnscreen(obj) {
   let ul = document.getElementById("listExpense");
   let newLi = `<li id="${obj._id}">  
-  Expense Type : ${obj.type}   Amount : ${obj.amount}   Description : ${obj.desc} <button onclick="editExp('${obj._id}')">Edit</button><button onclick="delExp('${obj._id}')">Delete</button>
+  Expense Type : ${obj.type}   Amount : ${obj.amount}   Description : ${obj.description} <button onclick="editExp('${obj._id}')">Edit</button><button onclick="delExp('${obj._id}')">Delete</button>
   </li>
   `;
 
@@ -93,7 +88,7 @@ function removeFromScreen(id) {
 async function delExp(id) {
   //delete
   try {
-    await axios.delete(`https://crudcrud.com/api/${API_KEY}/expenses/${id}`);
+    await axios.delete(`http://localhost:3000/expenses/${id}`);
     removeFromScreen(id);
   } catch (error) {
     console.log("delete", error);
@@ -104,9 +99,7 @@ async function delExp(id) {
 async function editExp(id) {
   try {
     //get expense
-    let expenseObj = await axios.get(
-      `https://crudcrud.com/api/${API_KEY}/expenses/${id}`
-    );
+    let expenseObj = await axios.get(`http://localhost:3000/expenses/${id}`);
     console.log(expenseObj);
 
     //set global edit id
@@ -114,7 +107,7 @@ async function editExp(id) {
 
     //now set data on form
     document.getElementById("amount").value = expenseObj.data.amount;
-    document.getElementById("desc").value = expenseObj.data.desc;
+    document.getElementById("description").value = expenseObj.data.description;
     document.getElementById("ExpanaseType").value = expenseObj.data.type;
 
     //remove from screen
