@@ -99,6 +99,10 @@ async function delExp(id) {
 // EDIT
 async function editExp(id) {
   try {
+    if (editId) {
+      return;
+    }
+
     //get expense
     let expenseObj = await axios.get(`http://localhost:3000/expenses/${id}`);
     console.log(expenseObj);
