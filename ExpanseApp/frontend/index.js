@@ -17,6 +17,11 @@ form.addEventListener("submit", (e) => sendData(e));
 
 async function getAll(event) {
   event.preventDefault();
+  //remove everything from form
+  // document.getElementById("amount").value = "";
+  // document.getElementById("description").value = "";
+  // document.getElementById("ExpanaseType").value = "";
+
   try {
     let res = await axios.get(`http://localhost:3000/expenses`);
 
@@ -48,7 +53,7 @@ async function sendData(e) {
       // console.log(editId);
       //edit // put request
 
-      await axios.put(`http//localhost:3000/expenses/${editId}`, expenseObj);
+      await axios.put(`http://localhost:3000/expenses/${editId}`, expenseObj);
       showOnscreen({ ...expenseObj, id: editId });
       editId = undefined;
     } else {
@@ -89,7 +94,7 @@ async function delExp(id) {
   //delete
   try {
     await axios.delete(`http://localhost:3000/expenses/${id}`);
-    console.log(res);
+    console.log("deleting ");
     removeFromScreen(id);
   } catch (error) {
     console.log("delete", error);
