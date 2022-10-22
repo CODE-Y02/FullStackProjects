@@ -49,7 +49,7 @@ async function sendData(e) {
       //edit // put request
 
       await axios.put(`http//localhost:3000/expenses/${editId}`, expenseObj);
-      showOnscreen({ ...expenseObj, _id: editId });
+      showOnscreen({ ...expenseObj, id: editId });
       editId = undefined;
     } else {
       // try {
@@ -71,8 +71,8 @@ async function sendData(e) {
 //show on screen
 function showOnscreen(obj) {
   let ul = document.getElementById("listExpense");
-  let newLi = `<li id="${obj._id}">  
-  Expense Type : ${obj.type}   Amount : ${obj.amount}   Description : ${obj.description} <button onclick="editExp('${obj._id}')">Edit</button><button onclick="delExp('${obj._id}')">Delete</button>
+  let newLi = `<li id="${obj.id}">  
+  Expense Type : ${obj.type}   Amount : ${obj.amount}   Description : ${obj.description} <button onclick="editExp('${obj.id}')">Edit</button><button onclick="delExp('${obj.id}')">Delete</button>
   </li>
   `;
 
@@ -89,6 +89,7 @@ async function delExp(id) {
   //delete
   try {
     await axios.delete(`http://localhost:3000/expenses/${id}`);
+    console.log(res);
     removeFromScreen(id);
   } catch (error) {
     console.log("delete", error);
