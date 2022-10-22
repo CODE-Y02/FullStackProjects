@@ -36,9 +36,10 @@ app.post("/expenses", (req, res) => {
   let expObj = {
     type: req.body.type,
     amount: req.body.amount,
-    description: req.description,
+    description: req.body.description,
   };
 
+  console.log(req.body);
   Expense.create(expObj)
     .then((newExpense) => {
       res.json(newExpense);
