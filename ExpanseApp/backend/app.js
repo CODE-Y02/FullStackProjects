@@ -8,6 +8,7 @@ const sequelize = require("./utils/database");
 
 // import models
 const Expense = require("./models/Expanse");
+const { where } = require("sequelize");
 
 // create express app
 const app = express();
@@ -39,7 +40,7 @@ app.post("/expenses", (req, res) => {
     description: req.body.description,
   };
 
-  console.log(req.body);
+  //   console.log(req.body);
   Expense.create(expObj)
     .then((newExpense) => {
       res.json(newExpense);
@@ -51,8 +52,42 @@ app.post("/expenses", (req, res) => {
 });
 
 //PUT --> "/expenses/:id" --> edit expense
+app.put("/expenses/:id", (req, res) => {
+  const id = req.params.id;
+  Expense.findByPk(id)
+    .then((expense) => {
+      expense.type = req.body.type;
+      expense.amount = req.body.amount;
+      expense.description = req.body.description;
+
+      return expense.save();
+    })
+    .then((expense) => {
+      res.json(expense);
+    })
+    .catch((err) => {
+      console.log("error in  EXPENSE", err);
+      res.status(500).json(err);
+    });
+});
 
 // delete --> "/expenses/:id" --> delete expense
+app.put("/expenses/:id", (req, res) => {
+  const id = req.params.id;
+  Expense.destroy({
+    where: {
+      id: id,
+    },
+  })
+    .then((result) => {
+      // console.log(result)
+      res.status(200);
+    })
+    .catch((err) => {
+      console.log("error in delete EXPENSE", err);
+      res.status(500).json(err);
+    });
+});
 
 // sync all models
 
