@@ -1,28 +1,27 @@
+const db = require("../util/db");
 const Sequelize = require("sequelize");
 
-//import Sequelize db pool
-const sequelize = require("../util/database");
-
-// create booking model
-const Booking = sequelize.define("booking", {
+const User = db.define("user", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  userName: {
+  name: {
     type: Sequelize.STRING,
-    allowNull: false,
-  },
-  phone: {
-    type: Sequelize.INTEGER,
     allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
+  },
+  phone: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: true,
   },
 });
 
-module.exports = Booking;
+module.exports = User;

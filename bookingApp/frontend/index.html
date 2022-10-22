@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking App</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"
+      integrity="sha512-rozBdNtS7jw9BlC76YF1FQGjz17qQ0J/Vu9ZCFIW374sEy4EZRbRcUZa2RU/MZ90X2mnLU56F75VfdToGV0RiA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <form onsubmit="saveToServer(event)">
+      <label for="name">Name</label>
+      <input type="text" id="name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" />
+      <label for="phone">phone</label>
+      <input type="tel" id="phone" />
+      <input type="submit" id="submit" value="submit" />
+      <input type="hidden" id="hidden" />
+    </form>
+    <ul id="userList"></ul>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
