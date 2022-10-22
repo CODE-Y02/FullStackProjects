@@ -37,10 +37,14 @@ app.get("/user/:id", (req, res) => {
 // user===>>>> add-user
 app.post("/user", (req, res) => {
   //   console.log(req.body);
-  User.create(req.body).then((newUser) => {
-    // console.log(newUser);
-    res.status(201).json(newUser);
-  });
+  User.create(req.body)
+    .then((newUser) => {
+      // console.log(newUser);
+      res.status(201).json(newUser);
+    })
+    .catch((err) => {
+      res.status(500).json({ err });
+    });
 });
 
 // user/id ===>>>> update user

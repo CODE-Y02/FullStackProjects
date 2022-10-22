@@ -65,7 +65,7 @@ function showEachBookingOnScreen(user) {
 
   let oldlist = document.getElementById("userList");
 
-  let newEle = `<li  id="${user.id}">
+  let newEle = `<li class="list-group-item" id="${user.id}">
                   Name: ${user.name}   Email: ${user.email}   Phone: ${user.phone}
 
                   <button id="del" onclick="deleteBooking(event,'${user.id}')">Delete</button>
