@@ -31,6 +31,18 @@ app.get("/expenses", (req, res) => {
       res.status(500).json(err);
     });
 });
+// get --> "/expenses/:id" -- > get single expenses
+app.get("/expenses/:id", (req, res) => {
+  const id = req.params.id;
+  Expense.findByPk(id)
+    .then((expense) => {
+      res.json(expense);
+    })
+    .catch((err) => {
+      console.log("error in get  EXPENSE", err);
+      res.status(500).json(err);
+    });
+});
 
 // post --> "/expenses" --> add new Expense
 app.post("/expenses", (req, res) => {
@@ -72,8 +84,9 @@ app.put("/expenses/:id", (req, res) => {
 });
 
 // delete --> "/expenses/:id" --> delete expense
-app.put("/expenses/:id", (req, res) => {
+app.delete("/expenses/:id", (req, res) => {
   const id = req.params.id;
+
   Expense.destroy({
     where: {
       id: id,
@@ -81,7 +94,7 @@ app.put("/expenses/:id", (req, res) => {
   })
     .then((result) => {
       // console.log(result)
-      res.status(200);
+      res.status(200).end();
     })
     .catch((err) => {
       console.log("error in delete EXPENSE", err);
